@@ -13,5 +13,7 @@ function strFormat(input){
     return input.toUpperCase();
 }
 
+console.log("app.js")
+console.log("app.js2")
 
 module.exports = {NAME, PASSWORD,strFormat, lol}; // better
