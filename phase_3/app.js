@@ -12,9 +12,9 @@ const dbConnectionString = process.env.MONGO_URL;
 
 
 // middleware
-app.use(cors())
+app.use(cors());
 app.use(express.json());
-app.use(express.static("./public"))
+app.use(express.static("./public"));
 app.use(express.urlencoded({extended: false}));
 app.use("/api/v1/tasks", taskRouter);
 app.use(notFound);
