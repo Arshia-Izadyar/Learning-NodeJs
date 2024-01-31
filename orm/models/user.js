@@ -22,11 +22,18 @@
 //   });
 //   return User;
 // };
+import bcrypt from 'bcrypt';
 
 import { DataTypes } from "sequelize";
 
+async function hashPassword(user){
+  const salt = await bcrypt.genSalt(10)
+  user.password = await bcrypt.hash(user.password, salt);
+}
+
+
 export default function(sequelize){
-  return sequelize.define('User', {
+  const User = sequelize.define('User', {
     fullName: {
       type: DataTypes.STRING(20),
       allowNull: false,
@@ -41,5 +48,17 @@ export default function(sequelize){
       allowNull: false
     }
 
-  })
+  },
+  {
+    hooks: {
+      beforeCreate: hashPassword,
+      beforeUpdate: hashPassword
+    },
+  });
+
+  User.prototype.isValidPassword = async function(password){
+    return await bcrypt.compare(password, this.password);
+  }
+
+  return User;
 }

@@ -4,8 +4,8 @@ import express from 'express';
 const router = express.Router();
 
 
-import {getAll} from './controller.js';
-import {createContact, getOne, deleteOne, update, get_image} from './controller.js';
+import {getAll} from '../controllers/controller.js';
+import {createContact, getOne, deleteOne, update, get_image} from '../controllers/controller.js';
 
 
 router.route('/').get(getAll);

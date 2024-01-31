@@ -1,11 +1,15 @@
 import express from 'express';
 import { sequelize } from './models/index.js';
-import {router} from "./routes.js";
+import {router as baseRouter} from "./routes/routes.js";
+import {router as userRouter} from './routes/users.js';
+import './auth.js';
+import passport from 'passport';
 
 
 const app = express();
 app.use(express.json())
-app.use(router);
+app.use('/accounts/', userRouter);
+app.use(passport.authenticate('jwt', {session:false}), baseRouter);
 
 // try{
 
