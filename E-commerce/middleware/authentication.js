@@ -11,8 +11,11 @@ async function authenticateUser(req, res, next){
     }
     try{
 
-        let {role, email} = isTokenValid(token);
-        req.user = {role:role, email:email}
+        let {role, email, userId} = isTokenValid(token);
+        req.user = {role:role, email:email, userId:userId}
+        console.log(req.user);
+        let a = isTokenValid(token)
+        console.log(a);
         next();
     } catch(err){
         res.status(StatusCodes.UNAUTHORIZED)
@@ -25,6 +28,8 @@ function authorizePermissions(...roles){
 
     return (req, res, next)=> {
         if (!roles.includes(req.user.role)){
+            console.log(req.user.role);
+            console.log(roles.includes(req.user.role));
             res.status(StatusCodes.FORBIDDEN);
             return res.json({data:null, error: "you dont have permission to access this route"});
         }

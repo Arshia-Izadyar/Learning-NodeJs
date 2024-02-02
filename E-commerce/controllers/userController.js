@@ -73,7 +73,7 @@ async function updateUserController(req, res){
     user.name = name || user.name;
     user.email = email || user.email;
     await user.save()
-    attachCookiesToResponse(res, {role:user.role, email:user.email});
+    attachCookiesToResponse(res, {role:user.role, email:user.email, userId:user._id});
     res.status(StatusCodes.ACCEPTED).json({data:"user updated", err:null});
 
 }

@@ -23,7 +23,7 @@ async function register(req, res) {
         let user = await User.create({name: username, password:password, email:email})  
         res.status(StatusCodes.CREATED);
 
-        attachCookiesToResponse(res, {role: user.role, "email": email});
+        attachCookiesToResponse(res, {role: user.role, "email": email, "userId":user._id});
         res.status(StatusCodes.OK);
         res.json({"data":"login success", "error":null});
 
@@ -61,7 +61,7 @@ async function login(req, res) {
         }
         
 
-        attachCookiesToResponse(res, {role: user.role, "email": email});
+        attachCookiesToResponse(res, {role: user.role, "email": email, "userId":user._id});
         res.status(StatusCodes.OK);
         return res.json({"data":"login success", "error":null});
 
