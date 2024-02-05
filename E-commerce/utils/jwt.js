@@ -19,9 +19,10 @@ function attachCookiesToResponse(res, user) {
         expires: new Date(Date.now() + (1000 * 60 * 60 * 24))
     });
 
-    // res.status(StatusCodes.OK);
-    // res.json({"data":"login success", "error":null});
-
+    /*
+    res.status(StatusCodes.OK);
+    res.json({"data":"login success", "error":null});
+    */
     
 }
 

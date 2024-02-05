@@ -17,7 +17,11 @@ async function getAllProduct(req, res){
 
 async function getSingleProduct(req, res){
     const {id: productId} = req.params;
-    const product = await Product.findOne({_id: productId});
+    
+    
+    const product = await Product.findOne({_id: productId}).populate({path:'reviews', match:{rating:1}});
+
+
     return res.status(StatusCodes.OK).json({data:product, error:null});
 }
 
@@ -47,10 +51,10 @@ async function uploadImage(req, res){
         throw new BadRequestError('file was not provided');
     }
     const productImage = req.files.image;
-    if (!productImage.mimetype.startsWith('image/jpeg')){
+    if (!productImage.mimetype.startsWith('image/')){
         throw new BadRequestError('please upload an image!');
     }
-    const max_size = 1024 * 1024 * 1024;
+    const max_size = 1024 * 1024 * 6;
     if (productImage.size > max_size) {
         throw new BadRequestError('please upload an smaller image (img < 1G)');
     }

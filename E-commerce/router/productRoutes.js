@@ -6,15 +6,18 @@ const {
     getSingleProduct,
     updateProduct,
     deleteProduct,
-    uploadImage
+    uploadImage,
+    
 } = require('../controllers/productController');
 
+const { getSingleProductReviews } = require('../controllers/reviewcontroller');
 
 const router = express.Router()
 
-router.route('/').post([authenticateUser, authorizePermissions('admin')], createProduct).get(getAllProduct);
+router.route('/').post([authenticateUser, authorizePermissions('admin', 'user')], createProduct).get(getAllProduct);
 router.route('/image').post(authenticateUser, authorizePermissions('admin'), uploadImage);
-router.route('/:id').patch(authenticateUser, authorizePermissions('admin'), updateProduct).delete(authenticateUser, authorizePermissions('admin'), deleteProduct).get(getSingleProduct);
+router.route('/:id').patch(authenticateUser, authorizePermissions('admin'), updateProduct).delete(authenticateUser, authorizePermissions('admin', 'user'), deleteProduct).get(getSingleProduct);
 
+router.route('/:id/reviews').get(getSingleProductReviews);
 
 module.exports = router;

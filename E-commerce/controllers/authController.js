@@ -2,7 +2,6 @@ const {StatusCodes} = require('http-status-codes');
 const User = require('../models/user');
 const CustomError = require('../errors/index');
 const {attachCookiesToResponse} = require('../utils/index');
-const { rtrim } = require('validator');
 
 async function register(req, res) {
     
@@ -11,9 +10,6 @@ async function register(req, res) {
         return res.json({"data": null, "error": "passwords don't match"});
     }
     try{
- 
-
-
 
         let email_exists = await User.findOne({email});
         if (email_exists){
