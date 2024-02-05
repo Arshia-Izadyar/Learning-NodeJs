@@ -3,10 +3,10 @@ const {authorizePermissions, authenticateUser} = require('../middleware/authenti
 const {
     createProduct,
     getAllProduct,
+    getSingleProduct,
     updateProduct,
     deleteProduct,
     uploadImage,
-    getSingleProduct,
     
 } = require('../controllers/productController');
 
